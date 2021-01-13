@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://sprites/character/zombie_leg.png" type="Texture" id=2]
+[ext_resource path="res://sprites/character/zombie_head.png" type="Texture" id=3]
+[ext_resource path="res://sprites/character/zombie_body.png" type="Texture" id=4]
+[ext_resource path="res://sprites/character/zombie_arm.png" type="Texture" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "punch"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("PlayerArm:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 110.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("PlayerArm:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 7.55481 ), Vector2( -23.72, -12.875 ), Vector2( 0, 7.55 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 42.3298, 83.5378 )
+
+[node name="Player" type="Area2D"]
+position = Vector2( 0.505379, 61.3067 )
+scale = Vector2( 1.5, 1.5 )
+script = ExtResource( 1 )
+
+[node name="PlayerLeg" type="Sprite" parent="."]
+position = Vector2( 0, 56.2515 )
+texture = ExtResource( 2 )
+
+[node name="PlayerHead" type="Sprite" parent="."]
+position = Vector2( 0, -61.1453 )
+texture = ExtResource( 3 )
+
+[node name="PlayerBody" type="Sprite" parent="."]
+texture = ExtResource( 4 )
+
+[node name="PlayerArm" type="Sprite" parent="."]
+position = Vector2( 0, 7.55 )
+texture = ExtResource( 5 )
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+anims/punch = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )

@@ -1,0 +1,86 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=1]
+[ext_resource path="res://scenes/Trunk.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/skybox_sideHills.png" type="Texture" id=3]
+[ext_resource path="res://sprites/dirt_grass.png" type="Texture" id=4]
+[ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sprites/Grave.png" type="Texture" id=6]
+[ext_resource path="res://PressStart2P-Regular.ttf" type="DynamicFontData" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 7 )
+
+[node name="Game" type="Node"]
+script = ExtResource( 1 )
+trunkScene = ExtResource( 2 )
+
+[node name="BackGround" type="Sprite" parent="."]
+position = Vector2( 256, 832 )
+scale = Vector2( 3.3711, 3.3711 )
+z_index = -10
+texture = ExtResource( 3 )
+
+[node name="Ground" type="Node2D" parent="."]
+editor/display_folded = true
+position = Vector2( 96, 1248 )
+scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Ground"]
+texture = ExtResource( 4 )
+
+[node name="Sprite2" type="Sprite" parent="Ground"]
+position = Vector2( 128, 0 )
+texture = ExtResource( 4 )
+
+[node name="Sprite3" type="Sprite" parent="Ground"]
+position = Vector2( 256, 0 )
+texture = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+position = Vector2( 533, 993.657 )
+
+[node name="FirstTrunkPosition" type="Position2D" parent="."]
+position = Vector2( 360, 992 )
+
+[node name="Dead" type="Sprite" parent="."]
+visible = false
+position = Vector2( 544, 1030.76 )
+texture = ExtResource( 6 )
+
+[node name="TimeLeft" type="ProgressBar" parent="."]
+margin_left = 256.0
+margin_top = 14.0
+margin_right = 503.0
+margin_bottom = 50.0
+max_value = 40.0
+value = 40.0
+percent_visible = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="PlayerScore Banner" type="RichTextLabel" parent="."]
+margin_left = 192.0
+margin_top = 1152.0
+margin_right = 400.0
+margin_bottom = 1192.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/normal_font = SubResource( 1 )
+text = "Player Score:"
+
+[node name="PlayerScore" type="RichTextLabel" parent="."]
+margin_left = 352.0
+margin_top = 1184.0
+margin_right = 403.0
+margin_bottom = 1214.0
+rect_scale = Vector2( 5, 5 )
+custom_fonts/normal_font = SubResource( 2 )
+text = "0"
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
